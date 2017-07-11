@@ -1,7 +1,19 @@
 // This file is the controller that handles the authentication when a user is signing UP or signing OUT.
 
-// Import the User model into our controller:
+// Import the User model, jwt-simple, & config.js into our controller:
 var User = require('../models/user');
+var jwt = require('jwt-simple');
+var config = require('../config');
+
+// When a user signs UP...
+function createUserToken(user){
+	// Create a timestamp for when the user created the token:
+	var timestamp = new Date().getTime();
+
+	// jwt has a "subject" property (sub). Assign sub to user.id because it's static & won't change. Once a user sign up, she'll have an id that always stays the same:
+	return jwt.encode({ sub: user.id, iat: timestamp }, config.secret)
+	// iat means "issued at." This adds date-created info to token.
+}
 
 // Define a signup function:
 exports.signup = function(req, res, next){
@@ -36,9 +48,9 @@ exports.signup = function(req, res, next){
 
 		// Save the user's record to the database:
 		user.save(function(err){
-			if(err) { return next(err); }
-			// Respond to request indicating the user was created:
-			res.json({ success: true });
+			if (err) { return next(err); }
+			// Respond to request with a token:
+			res.json({ token: createUserToken(user) });
 		});
 	});
 }
