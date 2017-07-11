@@ -9,6 +9,10 @@ exports.signup = function(req, res, next){
 	var email = req.body.email;
 	var password = req.body.password;
 	
+	if ( !email || !password ) {
+		return res.status(418).send({ error: "You must provide an email and a password."});
+	}
+
 	// Find one instance of a specific email address. 1st argument is the email object; 2nd argument is a callback function that runs asynchronously (the function will be invoked when response is received from the server):
 	User.findOne({ email: email }, function(err, existingUser){
 	// existingUser above: If there's someone with the email, the value will be null.
