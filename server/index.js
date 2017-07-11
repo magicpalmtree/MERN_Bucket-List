@@ -5,9 +5,14 @@ var bodyParser = require('body-parser');
 
 // Create an express app variable that will allow us to access all the good things express has to offer, and that will create an INSTANCE of express:
 var app = express();
+// Import the router file:
+var router = require('./router');
 
 // Add an instance of bodyParser that will be used to parse incoming JSON requests:
 app.use(bodyParser.json({ type: '*/*' }));
+
+// Call the router function and pass in the app:
+router(app);
 
 // Define a port on your local machine:
 var port = process.env.PORT || 3000;
