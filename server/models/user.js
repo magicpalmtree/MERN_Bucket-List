@@ -45,6 +45,16 @@ userSchema.pre('save', function(next){
 		});
 });
 
+userSchema.methods.comparePassword = function(candidatePassword, callback){
+	// this.password is our hashed and salted password:
+	bcrypt.compare(candidatePassword, this.password, function(err, isMatch){
+		// If there was an error, return the callback with the error:
+		if (err) { return callback(err); }
+		// Otherwise, call the callback:
+		callback(null, isMatch);
+	});
+}
+
 // Create the model that will create new users and load the Schema into Mongoose. This tells Mongoose that there's a new Schema called 'userSchema' that corresponds to a collection called 'user' (1st parameter):
 var model = mongoose.model('user', userSchema);
 

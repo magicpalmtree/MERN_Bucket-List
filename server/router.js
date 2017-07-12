@@ -7,6 +7,9 @@ var passport = require('passport');
 var requireAuth = passport.authenticate('jwt', {session: false});
 // By default, the .authenticate above wants to make a cookie. Since we're using jwt, we don't WANT a cookie. That's why we set the 1st parameter to 'jwt' and the 2nd to {session: false}.
 
+// Create another helper:
+var requireSignin = passport.authenticate('local', {session:false});
+
 module.exports = function(app){
 
 	// Add a new route for our app.get method:
@@ -17,4 +20,6 @@ module.exports = function(app){
 	
 	// When a user wants to sign up, route her to '/signup' and run the signup function:
 	app.post('/signup', Auth.signup);
+
+	app.post('/signin', requireSignin, Auth.signin);
 }

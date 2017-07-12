@@ -4,6 +4,39 @@ var User = require('../models/user');
 var config = require('../config');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
+var LocalStrategy = require('passport-local');
+
+// Create local strategy.
+// usernameField: 'email'
+var localOptions = { usernameField: 'email' };
+var localLogin = new LocalStrategy(localOptions, function(email, password, done){
+
+	// Find one user and compare pw. To find the existing user with email, we will use ‘email’ from the user model.:
+	User.findOne({email: email}, function(err, user){
+		// If there's an error in the search, return early w/error object:
+		if(err) { return done(err); }
+		// If no error, but user isn't found:
+		if(!user) { return done(null, false); }
+
+		// Compare password - is 'password' equal to user.password?
+		// Compare pw from req w/user's saved pw:
+		user.comparePassword(password, function(err, isMatch){
+			// If there was an error, return early:
+			if (err) { return done(err); }
+			// If pw's not the same, return false & say they didn't match:
+			if (!isMatch) { return done(null, false); }
+
+			// If pw's are the same, call passport callback w/user model:
+			return done(null, user);
+		});
+		// tricky part - we salted the pw, & we need to decode the encrypted pw to a normal pw.
+
+
+	});
+	// Otherwise, call 'done' w/'false':
+
+
+});
 
 // Set up options for the JwtStrategy:
 var jwtOptions = {
@@ -33,3 +66,43 @@ var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
 
 // Tell passport to use the jwtLogin function from above:
 passport.use(jwtLogin);
+// Tell passport to use the localLogin function from above:
+passport.use(localLogin);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

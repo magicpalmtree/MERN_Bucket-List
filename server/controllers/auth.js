@@ -55,9 +55,40 @@ exports.signup = function(req, res, next){
 	});
 }
 
+exports.signin = function(req, res, next){
+	// User's already had her email & pw authorized.
+	// We just need to give her a token.
+	res.send({ token: createUserToken(req.user) });
+}
+
 
 // Module 9 Correction from Ben Cook:
 // function createUserToken(user){
 //     let timestamp = new Date().getTime();
 //     return jwt.encode({sub: user.id,iat: timestamp }, config.secret);
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
