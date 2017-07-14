@@ -1,13 +1,18 @@
-// Action Constant Names
+// Import axios, a promise-based http library that let us make AJAX requests:
+import axios from 'axios';
 
-const SELECT_BAND = 'SELECT_BAND';
+// Create a constant:
+export const CREATE_POSTS = 'CREATE_POSTS';
 
-// selectBand is an Action Creator; it returns an action that has to be an object w/a type property:
-export function selectBand(band) {
-	console.log("You have selected: ", band.name);
+// Use a constant Root_URL to call out to a test api because we don't have our backend set up yet:
+const ROOT_URL = "http://rest.learncode.academy/api/caitlyntetmeyer";
+
+// Action creator function "createPost" (returns an action):
+export function createPost(props) {
+	const request = axios.post(`${ROOT_URL}/posts`, props);
 	return {
-		type: SELECT_BAND,
-		payload: band
+		type: CREATE_POSTS,
+		payload: request
 	};
 }
 
