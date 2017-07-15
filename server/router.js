@@ -14,7 +14,7 @@ module.exports = function(app){
 
 	// Add a new route for our app.get method:
 	app.get('/', requireAuth, function(req, res){
-		res.send('Hello Homepage');
+		res.send({ message:'Hey!' });
 		// res.send({hi: 'there'});
 	});
 	
@@ -23,3 +23,40 @@ module.exports = function(app){
 
 	app.post('/signin', requireSignin, Auth.signin);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

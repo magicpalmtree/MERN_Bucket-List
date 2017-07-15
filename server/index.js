@@ -1,4 +1,5 @@
-// Import express, http, body-parser:
+// Import:
+var cors = require('cors');
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
@@ -15,11 +16,20 @@ var mongoose = require('mongoose');
 // Database connection:
 mongoose.connect('mongodb://localhost:bucket/bucket');
 
-/* Middleware: */
+
+/* Begin Middleware: */
+
+// Add cors (a middleware on the Express side) and use the parens to invoke it. This allows users to make requests from other ports & domains.
+app.use(cors());
+
 // Add an instance of bodyParser that will be used to parse incoming JSON requests:
 app.use(bodyParser.json({ type: '*/*' }));
+
 // Call the router function and pass in the app:
 router(app);
+
+/* End Middleware */
+
 
 // Define a port on your local machine:
 var port = process.env.PORT || 3000;
