@@ -3,9 +3,21 @@
 // Import React and React Component:
 import React, {Component} from 'react';
 import {Navbar, Nav, NavItem, NavDropdown, DropdownButton, MenuItem, CollapsibleNav} from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 	class NavBarHeader extends Component {
-		// The render() chunk is our component:
+		renderLinks(){
+			if(this.props.authenticated){
+				return <NavItem href="#">Sign Out</NavItem>
+			} else {
+				return [
+					<NavItem key={1} href="#">Sign In</NavItem>,
+					<NavItem key={2} href="#">Sign Up</NavItem>
+				];
+			}
+		}
+
 		render() {
 			return (
 				<Navbar>
@@ -16,24 +28,31 @@ import {Navbar, Nav, NavItem, NavDropdown, DropdownButton, MenuItem, Collapsible
 					</Navbar.Header>
 
 					<Nav>
-						<NavItem eventKey={1} href="#">Sign In</NavItem>
-						<NavItem eventKey={2} href="#">Sign Up</NavItem>
-						<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-							<MenuItem eventKey={3.1}>Goal 1</MenuItem>
-							<MenuItem eventKey={3.2}>Goal 2</MenuItem>
-							<MenuItem eventKey={3.3}>Goal 3</MenuItem>
+						{this.renderLinks()}
+						<NavDropdown key={3} title="Cool Stuff" id="basic-nav-dropdown">
+							<MenuItem key={3.1}>Action</MenuItem>
+							<MenuItem key={3.2}>Another action</MenuItem>
+							<MenuItem key={3.3}>Something else here</MenuItem>
 							<MenuItem divider />
-							<MenuItem eventKey={3.3}>More Goals</MenuItem>
+							<MenuItem key={3.4}>Separated link</MenuItem>
 						</NavDropdown>
 					</Nav>
 				</Navbar>
 			);
 		}
+
+		// The STATE is passed into the following function & will tell whether the user's authenticated.
+		// Turn the navbar component into a smart component (container):
+		function mapStateToProps(state) {
+			return {
+				authenticated: state.auth.authenticated
+			};
+		}
 	}
 
 // Export the component:
-export default NavBarHeader;
-
+export default connect(mapStateToProps)(NavBarHeader);
+// uses "connect" to pass in "mapStateToProps" so we can use "auth.authenticated" from above
 
 
 

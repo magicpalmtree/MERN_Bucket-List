@@ -1,7 +1,13 @@
 // Import axios, a promise-based http library that let us make AJAX requests:
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { AUTH_USER, UNAUTH_USER } from './types';
+
+import { 
+	AUTH_USER, 
+	UNAUTH_USER,
+	AUTH_ERROR 
+} from './types';
+
 import authReducer from '../reducers/auth_reducer';
 
 // Create a constant:
@@ -20,17 +26,35 @@ export function signinUser({ email, password }){
 			.then(response => {
 				// This only kickstarts if the request was good.
 				// Update the state to indicate authenticated user:
-				dispatch({ types: AUTH_USER });
+				dispatch({ type: AUTH_USER });
 				// Put the token in localStorage so it's safe:
 				localStorage.setItem('token', response.data.token);
 				// This sends us off to the /newitem view:
 				browserHistory.push('/newitem');
-			})
-			.catch(() => {
+			}) // /.then(response =>
 
-			});
-	}
-}
+			// Put an Action Creator inside the Action Creator.
+			// If the user tries to sign in and fails, dispatch a method that says, "Bad login info":
+			.catch(response => dispatch(authError)("Bad login info"));
+
+
+
+			// Action Creator that returns an Action. Has a type property in it.
+			export function authError(error) {
+				return {
+					type: AUTH_ERROR,
+					payload: error
+				};
+			}
+
+
+
+
+
+	} // /return function(dispatch)
+} // /export function
+
+
 
 
 // Action creator function "createPost" (returns an action):
