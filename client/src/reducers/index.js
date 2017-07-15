@@ -1,18 +1,15 @@
 import { combineReducers } from 'redux';
-import BandsReducer from './reducer_bands';
-import SelectedBand from './reducer_selectedband';
-
-// Import the pre-built reducer from redux-form:
 import {reducer as formReducer} from 'redux-form';
-
-import GoalsReducer from './reducer_goals';
+import authReducer from './auth_reducer';
+import {
+	AUTH_USER,
+	UNAUTH_USER
+} from '../actions/types';
 
 // Define the properties of our Application State:
 	const rootReducer = combineReducers({
-		form: formReducer
-		// bands: BandsReducer,
-		// SelectedBand: SelectedBand,
-		// goals: GoalsReducer
+		form: formReducer,
+		auth: authReducer
 	});
 
 export default rootReducer;
