@@ -34,9 +34,9 @@ class Signin extends Component {
 					<label>Password:</label>
 					<input {...password} type="password" className="form-control" />
 				</fieldset>
+					{/* The below line will render if the renderAlert() above is "true". */}
 					{this.renderAlert()}
 			<button action="submit" className="btn btn-primary">Sign in</button>
-
 		</form>
 		);
 	}
@@ -53,7 +53,6 @@ function mapStateToProps(state) {
 export default reduxForm({
 
 	// Pass in an object w/2 properties:
-
 	form: 'signin',
 	fields: ['email', 'password']
 

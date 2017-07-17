@@ -9,11 +9,11 @@ import { Link } from 'react-router';
 	class NavBarHeader extends Component {
 		renderLinks(){
 			if(this.props.authenticated){
-				return <NavItem href="#">Sign Out</NavItem>
+				return <NavItem href="/signout">Sign Out</NavItem>
 			} else {
 				return [
-					<NavItem key={1} href="#">Sign In</NavItem>,
-					<NavItem key={2} href="#">Sign Up</NavItem>
+					<NavItem key={1} href="/signin">Sign In</NavItem>,
+					<NavItem key={2} href="/signup">Sign Up</NavItem>
 				];
 			}
 		}
@@ -26,9 +26,9 @@ import { Link } from 'react-router';
 							<a href="#">Bucket List</a>
 						</Navbar.Brand>
 					</Navbar.Header>
-
 					<Nav>
 						{this.renderLinks()}
+						
 						<NavDropdown key={3} title="Cool Stuff" id="basic-nav-dropdown">
 							<MenuItem key={3.1}>Action</MenuItem>
 							<MenuItem key={3.2}>Another action</MenuItem>
@@ -40,15 +40,13 @@ import { Link } from 'react-router';
 				</Navbar>
 			);
 		}
+}
 
-		// The STATE is passed into the following function & will tell whether the user's authenticated.
-		// Turn the navbar component into a smart component (container):
-		function mapStateToProps(state) {
-			return {
-				authenticated: state.auth.authenticated
-			};
-		}
-	}
+function mapStateToProps(state) {
+	return {
+		authenticated: state.auth.authenticated
+	};
+}
 
 // Export the component:
 export default connect(mapStateToProps)(NavBarHeader);

@@ -24,6 +24,7 @@ export function signinUser({ email, password }){
 	return function(dispatch){
 		axios.post(`${ROOT_URL}/signin`, {email, password})
 			.then(response => {
+
 				// This only kickstarts if the request was good.
 				// Update the state to indicate authenticated user:
 				dispatch({ type: AUTH_USER });
@@ -31,30 +32,33 @@ export function signinUser({ email, password }){
 				localStorage.setItem('token', response.data.token);
 				// This sends us off to the /newitem view:
 				browserHistory.push('/newitem');
-			}) // /.then(response =>
-
-			// Put an Action Creator inside the Action Creator.
-			// If the user tries to sign in and fails, dispatch a method that says, "Bad login info":
-			.catch(response => dispatch(authError)("Bad login info"));
-
-
-
-			// Action Creator that returns an Action. Has a type property in it.
-			export function authError(error) {
-				return {
-					type: AUTH_ERROR,
-					payload: error
-				};
-			}
-
-
-
+				
+					})
+						.catch(response => dispatch(authError)("Bad login info"));
 
 
 	} // /return function(dispatch)
+
 } // /export function
 
 
+// The purpose of type is to catch unauth_user case.
+// It flips auth tag to "false," & there won't be any links associated w/them.
+export function signoutUser() {
+	// Get rid of token:
+	localStorage.removeItem('token');
+	return {type: UNAUTH_USER};
+}
+
+
+// Action Creator that returns an Action. Has a type property in it.
+export function authError(error) {
+	return {
+		type: AUTH_ERROR,
+		payload: error
+	};
+
+}
 
 
 // Action creator function "createPost" (returns an action):
@@ -64,7 +68,9 @@ export function createPost(props) {
 		type: CREATE_POSTS,
 		payload: request
 	};
+
 }
+
 
 
 

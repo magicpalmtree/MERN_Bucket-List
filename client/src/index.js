@@ -6,10 +6,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import App from './components/app';
-import reducers from './reducers';
 import Signin from './components/auth/signin';
-// import SimpleForm from './components/SimpleForm';
-import ListItem from './components/list/new-list-item'
+import Signout from './components/auth/signout';
+import ListItem from './components/list/new-list-item';
+import reducers from './reducers';
 
 var createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 
@@ -20,7 +20,9 @@ ReactDOM.render(
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
 				<Route path="signin" component={Signin} />
-				<Route path="new-list-item" component={ListItem} />
+				{/* <Route path="signup" component={Signup} /> */}
+				<Route path="newitem" component={ListItem} />
+				<Route path="signout" component={Signout} />
 			</Route>
 		</Router>
 
