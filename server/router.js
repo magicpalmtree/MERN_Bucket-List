@@ -12,18 +12,13 @@ var requireAuth = passport.authenticate('jwt', {session: false});
 // Create another helper:
 var requireSignin = passport.authenticate('local', {session:false});
 
-module.exports = function(app){
-
-	// Add a new route for our app.get method:
-	// app.get('/', requireAuth, function(req, res){
-		// res.send({ message:'Hey!' });
-		// res.send({hi: 'there'});
-	// });
-	
+module.exports = function(app){	
 	// When a user wants to sign up, route her to '/signup' and run the signup function:
 	app.post('/signup', Auth.signup);
 	app.post('/signin', requireSignin, Auth.signin);
 	app.post('/newitem', requireAuth, BucketList.addBucketList);
+	/* Create our "/items" route. It's a "get" request. It requires authentication. Call the fetchBucketLists function on the BucketList variable that's at the top of this file. */
+	app.get('/items', requireAuth, BucketList.fetchBucketLists);
 }
 
 

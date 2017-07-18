@@ -70,8 +70,7 @@ export function createPost(props) {
 				type: CREATE_POSTS,
 				payload: request
 			});
-			// I'm not sure if the following line should have '/newitems', '/newitem', or '/items' - see Module 22, Step 16 in the original notes (not my notes):
-			browserHistory.push('/newitem');
+			browserHistory.push('/items');
 		});
 	}
 }
