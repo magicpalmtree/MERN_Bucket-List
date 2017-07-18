@@ -19,6 +19,8 @@ module.exports = function(app){
 	app.post('/newitem', requireAuth, BucketList.addBucketList);
 	/* Create our "/items" route. It's a "get" request. It requires authentication. Call the fetchBucketLists function on the BucketList variable that's at the top of this file. */
 	app.get('/items', requireAuth, BucketList.fetchBucketLists);
+	app.get('/items/:id', requireAuth, BucketList.fetchBucketList);
+	app.delete('/items/:id', requireAuth, BucketList.deleteBucketList);
 }
 
 
