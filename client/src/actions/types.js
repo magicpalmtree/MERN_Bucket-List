@@ -9,3 +9,42 @@ export const AUTH_ERROR = 'auth_error';
 // Create a CREATE_POSTS type to pass through the reducers and all other reducers:
 export const CREATE_POSTS = 'CREATE_POSTS';
 
+export const FETCH_POSTS = 'FETCH_POSTS';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
