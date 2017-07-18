@@ -1,23 +1,23 @@
 // Import axios, a promise-based http library that let us make AJAX requests:
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-
 import { 
 	AUTH_USER, 
 	UNAUTH_USER,
-	AUTH_ERROR 
+	AUTH_ERROR,
+	CREATE_POSTS
 } from './types';
 
 import authReducer from '../reducers/auth_reducer';
 
-// Create a constant:
-export const CREATE_POSTS = 'CREATE_POSTS';
+// export const CREATE_POSTS = 'CREATE_POSTS';
 
-/* Before backend is set up, use a constant Root_URL to call out to a test api:
-const ROOT_URL = "http://rest.learncode.academy/api/paul"; 
-
-Once backend's set up, create a variable that contains the URL of the api server: */
 const ROOT_URL = 'http://localhost:3000';
+
+// This config variable will be used to get our token from local storage and attach it to our header so that we can make an authenticated request:
+var config = {
+	headers: { authorization: localStorage.getItem('token') }
+}
 
 export function signinUser({ email, password }){
 
@@ -33,8 +33,8 @@ export function signinUser({ email, password }){
 				// This sends us off to the /newitem view:
 				browserHistory.push('/newitem');
 				
-					})
-						.catch(response => dispatch(authError)("Bad login info"));
+				})
+				.catch(response => dispatch(authError)("Bad login info"));
 
 
 	} // /return function(dispatch)
@@ -61,14 +61,19 @@ export function authError(error) {
 }
 
 
-// Action creator function "createPost" (returns an action):
+// Action creator function (returns an action):
 export function createPost(props) {
-	const request = axios.post(`${ROOT_URL}/posts`, props);
-	return {
-		type: CREATE_POSTS,
-		payload: request
-	};
-
+	return function(dispatch){
+		axios.post(`${ROOT_URL}/newitem`, { props }, config )
+		.then(request => {
+			dispatch({
+				type: CREATE_POSTS,
+				payload: request
+			});
+			// I'm not sure if the following line should have '/newitems', '/newitem', or '/items' - see Module 22, Step 16 in the original notes (not my notes):
+			browserHistory.push('/newitem');
+		});
+	}
 }
 
 export function signupUser({ email, password }){
