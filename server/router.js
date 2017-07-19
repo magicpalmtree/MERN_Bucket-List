@@ -1,5 +1,6 @@
 // Import stuff:
 var Auth = require('./controllers/auth');
+var User = require('./models/user');
 var BucketList = require('./controllers/bucketlistcontroller');
 
 var passportService = require('./services/passport');
@@ -13,17 +14,22 @@ var requireAuth = passport.authenticate('jwt', {session: false});
 var requireSignin = passport.authenticate('local', {session:false});
 
 module.exports = function(app){	
+
+	// Do I need this app.get? -
+	app.get('/', requireAuth, function(req, res){
+		res.send({message: 'hey'};)
+	});
+
+	app.post('api/signin', requireSignin, Auth.signin);
 	// When a user wants to sign up, route her to '/signup' and run the signup function:
-	app.post('/signup', Auth.signup);
-	app.post('/signin', requireSignin, Auth.signin);
-	app.post('/newitem', requireAuth, BucketList.addBucketList);
-	/* Create our "/items" route. It's a "get" request. It requires authentication. Call the fetchBucketLists function on the BucketList variable that's at the top of this file. */
-	app.get('/items', requireAuth, BucketList.fetchBucketLists);
-	app.get('/items/:id', requireAuth, BucketList.fetchBucketList);
-	// Create an endpoint for update:
-	app.put('/items/:id', requireAuth, BucketList.updateBucketList);
-	app.delete('/items/:id', requireAuth, BucketList.deleteBucketList);
-}
+	app.post('/api/signup', Auth.signup);
+	app.post('/api/newitem', requireAuth, BucketList.addBucketList);
+	app.get('/api/items', requireAuth, BucketList.fetchBucketLists);
+	app.get('/api/items/:id', requireAuth, BucketList.fetchBucketList);
+	// Do I need this line? -
+	app.put('/api/items/:id', requireAuth, BucketList.updateBucketList);
+	app.delete('/api/items/:id', requireAuth, BucketList.deleteBucketList);
+};
 
 
 

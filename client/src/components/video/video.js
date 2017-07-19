@@ -18,7 +18,7 @@ class Video extends Component {
 			videos: [],
 			selectedVideo: null
 		};
-		this.videoSearch('bucketlist');
+		this.videoSearch('create bucket list');
 	}
 	videoSearch(term) {
 		YTSearch({key: API_KEY, term: term}, (videos) => {

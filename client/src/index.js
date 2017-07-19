@@ -17,6 +17,8 @@ import ListsShow from './components/list/list-items';
 // singular "List" in "ListShow":
 import ListShow from './components/list/list-show';
 
+import UpdateList from './components/list/update-list-item';
+
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 
@@ -34,6 +36,7 @@ ReactDOM.render(
 				<Route path="newitem" component={RequireAuth(ListItem)} />
 				<Route path="items" component={RequireAuth(ListsShow)} />
 				<Route path="items/:id" component={RequireAuth(ListShow)} />
+				<Route path="updateitem/:id" component={RequireAuth(UpdateList)} />
 			</Route>
 		</Router>
 	</Provider>

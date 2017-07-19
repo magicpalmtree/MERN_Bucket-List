@@ -12,7 +12,7 @@ class ListItem extends Component {
 		const { fields: { title, topic, url, content }, handleSubmit } = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-				<h3>Create a New Post</h3>
+				<h3>Create a New Bucket List Item</h3>
 
 				<fieldset className="form-group">
 					<label>Title</label>
@@ -30,7 +30,7 @@ class ListItem extends Component {
 				</fieldset>
 
 				<fieldset className="form-group">
-					<label>Content</label>
+					<label>Notes</label>
 					<textarea type="text" rows="8" className="form-control text" {...content} />
 				</fieldset>
 
