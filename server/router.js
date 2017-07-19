@@ -15,11 +15,6 @@ var requireSignin = passport.authenticate('local', {session:false});
 
 module.exports = function(app){	
 
-	// Do I need this app.get? -
-	app.get('/', requireAuth, function(req, res){
-		res.send({message: 'hey'};)
-	});
-
 	app.post('api/signin', requireSignin, Auth.signin);
 	// When a user wants to sign up, route her to '/signup' and run the signup function:
 	app.post('/api/signup', Auth.signup);
