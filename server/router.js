@@ -1,6 +1,6 @@
 // Import stuff:
 var Auth = require('./controllers/auth');
-var User = require('./models/user');
+// var User = require('./models/user');
 var BucketList = require('./controllers/bucketlistcontroller');
 
 var passportService = require('./services/passport');
