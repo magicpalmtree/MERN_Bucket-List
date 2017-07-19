@@ -6,7 +6,9 @@ import {
 	UNAUTH_USER,
 	AUTH_ERROR,
 	CREATE_POSTS,
-	FETCH_POSTS
+	FETCH_POSTS,
+	FETCH_POST,
+	DELETE_POST
 } from './types';
 
 import authReducer from '../reducers/auth_reducer';
@@ -105,6 +107,46 @@ export function fetchPosts() {
 		});
 	}
 }
+
+// Complement to the server side for fetching a single post:
+export function fetchPost(id) {
+	return function(dispatch) {
+		axios.get(`${ROOT_URL}/items/${id}`, config)
+		.then( (response) => {
+			console.log("Response", response)
+			dispatch({
+				type: FETCH_POST,
+				payload: response
+			});
+		});
+	}
+}
+
+// Complement to the server side for deleting a single post:
+export function deletePost(id) {
+	return function(dispatch) {
+		axios.delete(`${ROOT_URL}/items/${id}`, config)
+		.then( (response) => {
+			dispatch({
+				type: DELETE_POST,
+				payload: response
+			});
+			browserHistory.push('/items');
+		});
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

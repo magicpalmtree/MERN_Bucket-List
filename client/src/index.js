@@ -10,7 +10,13 @@ import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
 import ListItem from './components/list/new-list-item';
-import ListShow from './components/list/list-items';
+
+// plural "Lists" in "ListsShow":
+import ListsShow from './components/list/list-items';
+
+// singular "List" in "ListShow":
+import ListShow from './components/list/list-show';
+
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 
@@ -26,7 +32,8 @@ ReactDOM.render(
 				<Route path="signup" component={Signup} />
 				{/* Pass "ListItem" into the "RequireAuth" function so we have an authenticated route: */}		
 				<Route path="newitem" component={RequireAuth(ListItem)} />
-				<Route path="items" component={RequireAuth(ListShow)} />
+				<Route path="items" component={RequireAuth(ListsShow)} />
+				<Route path="items/:id" component={RequireAuth(ListShow)} />
 			</Route>
 		</Router>
 	</Provider>
