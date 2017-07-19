@@ -20,6 +20,8 @@ module.exports = function(app){
 	/* Create our "/items" route. It's a "get" request. It requires authentication. Call the fetchBucketLists function on the BucketList variable that's at the top of this file. */
 	app.get('/items', requireAuth, BucketList.fetchBucketLists);
 	app.get('/items/:id', requireAuth, BucketList.fetchBucketList);
+	// Create an endpoint for update:
+	app.put('/items/:id', requireAuth, BucketList.updateBucketList);
 	app.delete('/items/:id', requireAuth, BucketList.deleteBucketList);
 }
 
