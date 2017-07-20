@@ -16,7 +16,7 @@ import authReducer from '../reducers/auth_reducer';
 
 // export const CREATE_POSTS = 'CREATE_POSTS';
 
-const ROOT_URL = 'https://cct-bucketlist.herokuapp.com/api';
+const ROOT_URL = 'http://cct-bucketlist.herokuapp.com/api';
 
 // This config variable will be used to get our token from local storage and attach it to our header so that we can make an authenticated request:
 var config = {
