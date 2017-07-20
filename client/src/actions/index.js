@@ -38,7 +38,7 @@ export function signinUser({ email, password }){
 				browserHistory.push('/newitem');
 				
 				})
-				.catch(response => dispatch(authError)("Bad login info"));
+				.catch(response => dispatch(authError("Bad login info")));
 
 
 	} // /return function(dispatch)
